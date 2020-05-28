@@ -1,10 +1,18 @@
-# covid-tracker
+# Acompanhamento de casos da Covid-19
 O projeto faz uma análise dos dados da Covid-19 no Brasil. Casos e óbitos por dia, por uf e por região do país.
 Os dados sao obtidos atraves do github do wesley cota pela url:https://raw.githubusercontent.com/wcota/covid19br/master/cases-brazil-states.csv .
 Foi o melhor compilado de dados que encontrei.
 
+## Prints
+![print1](https://github.com/eduardozampiere/covid/blob/master/prints/covid-1.png)
+![print2](https://github.com/eduardozampiere/covid/blob/master/prints/covid-2.png)
+![print3](https://github.com/eduardozampiere/covid/blob/master/prints/covid-3.png)
+![print4](https://github.com/eduardozampiere/covid/blob/master/prints/covid-4.png)
+![print5](https://github.com/eduardozampiere/covid/blob/master/prints/covid-5.png)
+![print6](https://github.com/eduardozampiere/covid/blob/master/prints/covid-6.png)
+![print7](https://github.com/eduardozampiere/covid/blob/master/prints/covid-7.png)
 
-# Dados retornados
+## Dados retornados
 O sistema retorna um objeto javascript como exemplificado abaixo:
 
 ````js
@@ -61,7 +69,7 @@ por_estado: {
 ````
 os demais objetos seguem o mesmo padrão
 
-# Como o sistema realiza a projeção de casos ?
+### Como o sistema realiza a projeção de casos ?
 
 O sistema usa o crescimento exponencial para realizar a projeção. 
 Uma função exponencial f(x, y, z) 
