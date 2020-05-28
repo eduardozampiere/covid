@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css">
+	<style type="text/css">
+		@media(max-width: 991.98px){
+			body{
+				font-size: 2.5em !important;
+				}
+			.navbar-brand{
+				font-size: 2rem !important;
+				}
+			.navbar-toggler-icon{
+				width: 6rem;
+				height: 4rem
+			}
+		}
+
+		@media(min-width: 992px){
+			body{
+				font-size: 1em !important;
+			}
+		}
+
+		#tabela_estados{
+			overflow: auto;
+			height: 490px;
+		}
+
+		#grafico_regiao{
+			min-height: 490px
+		}
+
+	</style>
+	<script type="text/javascript" src="/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/chart.js/dist/Chart.min.js"></script>
+	<script type="text/javascript">
+
+		function draw_casos_por_regiao(json){
+			$('#canvas_regiao').parent().html('<canvas id="canvas_regiao"></canvas>');
+			var ctx = document.getElementById('canvas_regiao').getContext('2d');
+			
+
+			var nCasos = [];
+			var regioes = [];
+
+			for(i in json){
+				regioes.push(i);
+				nCasos.push(json[i].casos)
+			}
+
+			var data = {
+				datasets:[{
+					data: nCasos,
+					backgroundColor: ['#FF4500', '#6959CD', '#00FF7F', '#FF00FF', '#FFD700', '#228B22', '#008B8B']
+				}],
+
+				labels:regioes,
+			}
+
+			var chart = new Chart(ctx, {
+				type: 'pie',
+				data: data,
+			})
+		}
+
+		function draw_grafico_dias(json){
+			$('#canvas_dia').parent().html('<canvas id="canvas_dia"></canvas>');
+			var ctx = document.getElementById('canvas_dia').getContext('2d');
+			
+			var nCasos = [];
+			var nMortes = [];
+			var dias = [];
+			for(i in json){
+				nCasos.push(json[i].casos)
+				nMortes.push(json[i].mortos)
+				dias.push(i)
+			}
+
+			var data = {
+				datasets:[{
+					backgroundColor: '#6959CD',
+					data: nCasos,
+					label: 'Casos confirmados',
+				},{
+					backgroundColor: '#FF4500',
+					data: nMortes,
+					label: 'Mortes confirmadas',
+				}],
+
+				labels:dias,
+			}
+
+			var chart = new Chart(ctx, {
+				type: 'line',
+				data: data,
+				// options: {
+				// 	scales:{
+				// 		xAxes: [{
+				// 			stacked: true,
+				// 		}],
+				// 		yAxes:[{
+				// 			stacked: true,
+				// 		}]
+				// 	}
+				// }
+			})
+		}
+
+		function draw_grafico_projecao(json){
+			$('#canvas_projecao').parent().html('<canvas id="canvas_projecao"></canvas>');
+			var ctx = document.getElementById('canvas_projecao').getContext('2d');
+			
+			var nCasos = [];
+			var nMortes = [];
+			var dias = [];
+			for(i in json){
+				nCasos.push(json[i].casos)
+				nMortes.push(json[i].mortos)
+				dias.push(i)
+			}
+
+			var data = {
+				datasets:[{
+					backgroundColor: '#6959CD',
+					data: nCasos,
+					label: 'Casos projetados',
+				},{
+					backgroundColor: '#FF4500',
+					data: nMortes,
+					label: 'Mortes projetadas',
+				}],
+
+				labels:dias,
+			}
+
+			var chart = new Chart(ctx, {
+				type: 'line',
+				data: data,
+			})
+		}
+
+		function draw_grafico_novos_dias(json){
+			$('#canvas_dia_novos').parent().html('<canvas id="canvas_dia_novos"></canvas>');
+			var ctx = document.getElementById('canvas_dia_novos').getContext('2d');
+
+			var nCasos = [];
+			var nMortes = [];
+			var dias = [];
+			for(i in json){
+				nCasos.push(json[i].casos)
+				nMortes.push(json[i].mortos)
+				dias.push(i)
+			}
+
+			var data = {
+				datasets:[{
+					backgroundColor: '#6959CD',
+					data: nCasos,
+					label: 'Casos novos',
+				},{
+					backgroundColor: '#FF4500',
+					data: nMortes,
+					label: 'Mortes novas',
+				}],
+
+				labels:dias,
+			}
+
+			var chart = new Chart(ctx, {
+				type: 'line',
+				data: data,
+				// options: {
+				// 	scales:{
+				// 		xAxes: [{
+				// 			stacked: true,
+				// 		}],
+				// 		yAxes:[{
+				// 			stacked: true,
+				// 		}]
+				// 	}
+				// }
+			})
+		}
+
+		function draw_grafico_mortalidade(json){
+			$('#canvas_mortalidade').parent().html('<canvas id="canvas_mortalidade"></canvas>');
+			var ctx = document.getElementById('canvas_mortalidade').getContext('2d');
+
+			var taxa = [];
+			var dias = [];
+			for(i in json){
+				taxa.push(json[i])
+				dias.push(i)
+			}
+
+			var data = {
+				datasets:[{
+					backgroundColor: '#FF4500',
+					data: taxa,
+					label: 'Taxa de mortalidade por dia',
+				}],
+
+				labels:dias,
+			}
+
+			var chart = new Chart(ctx, {
+				type: 'line',
+				data: data,
+				options: {
+					scales:{
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes:[{
+							stacked: true,
+						}]
+					}
+				}
+			})
+		}
+
+		function draw_grafico_semana(json){
+			$('#canvas_semana').parent().html('<canvas id="canvas_semana"></canvas>');
+			var ctx = document.getElementById('canvas_semana').getContext('2d');
+
+			var casos = [];
+			var mortes = [];
+
+			var semanas = [];
+			
+			for(i in json){
+				var aux = json[i]
+
+				casos.push(aux.casos)
+				mortes.push(aux.mortos)
+				
+				semanas.push("Semana " + i)
+			}
+
+			var data = {
+				datasets:[{
+					backgroundColor: '#6959CD',
+					data: casos,
+					label: 'Casos por semana',
+				},
+				{
+					backgroundColor: '#FF4500',
+					data: mortes,
+					label: 'Mortes por semana',
+				}],
+
+				labels:semanas,
+			}
+
+			var chart = new Chart(ctx, {
+				type: 'bar',
+				data: data,
+				options: {
+					scales:{
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes:[{
+							stacked: true,
+						}]
+					}
+				}
+			})
+		}
+
+		function draw_grafico_cem_mil(json){
+			$('#canvas_cem_mil').parent().html('<canvas id="canvas_cem_mil"></canvas>');
+			var ctx = document.getElementById('canvas_cem_mil').getContext('2d');
+
+			var casos = [];
+			var mortes = [];
+
+			var estados = [];
+			
+			for(i in json){
+				var aux = json[i]
+
+				casos.push(aux.casos.toFixed(2))
+				mortes.push(aux.mortos.toFixed(2))
+				
+				estados.push(i)
+			}
+
+			var data = {
+				datasets:[{
+					backgroundColor: '#6959CD',
+					data: casos,
+					label: 'Casos por 100 mil habitantes',
+				},
+				{
+					backgroundColor: '#FF4500',
+					data: mortes,
+					label: 'Mortes por 100 mil habitantes',
+				}],
+
+				labels:estados,
+			}
+
+			var chart = new Chart(ctx, {
+				type: 'bar',
+				data: data,
+				options: {
+					scales:{
+						xAxes: [{
+							stacked: true,
+						}],
+						yAxes:[{
+							stacked: true,
+						}]
+					}
+				}
+			})
+		}
+
+		function load_data(obj){
+			$.ajax({
+				type: 'POST',
+				url: 'http://localhost:3001/get',
+				data: obj,
+				dataType: 'json',
+				success: function (data){
+					console.log(data);
+					$("[set_value=ultimo_dia]").text( data.ultimo_dia );
+					$("[set_value='confirmados']").text( data.confirmados );
+					$("[set_value='mortos']").text( data.mortos );
+					$("[set_value='letalidade']").text( data.letalidade.toFixed(2) );
+					$("[set_value='dobro']").text( data.dobro + " dias" );
+					$("[set_value='dias_projecao']").text( data.dias_projecao + " dias" );
+					
+					$("[set_value='por_estado']").html('');
+					for(i in data.por_estados){
+						
+						$("[set_value='por_estado']").append(`
+							<tr>
+								<th scope="row">${i}</th>
+								<td>${data.por_estados[i].casos}</td>	
+								<td>${data.por_estados[i].mortos}</td>
+							</tr>
+						`);
+					}
+
+					let regioes = data.estado_por_regiao;
+					let op = '<option value=0>Todos</option>';
+					op += '<optgroup label="Regiões">';
+					for(regiao in regioes){
+						op += '<option value="'+regiao+'" type="regiao">'+regiao+'</option>';
+					}
+					op += '</optgroup>';
+
+					for(regiao in regioes){
+						op += '<optgroup label="'+regiao+'">';
+						for(estado in regioes[regiao]){
+							op += '<option value="'+estado+'" type="estado">'+estado+'</option>';
+						}
+
+						op += '</optgroup>';
+					}
+
+
+					// $("#select_uf").html(op);
+					draw_casos_por_regiao(data.por_regiao);
+					draw_grafico_projecao(data.projecao);
+					draw_grafico_dias(data.por_dia);
+					draw_grafico_novos_dias(data.por_dia_novos);
+					draw_grafico_mortalidade(data.letalidade_dia);
+					draw_grafico_semana(data.por_semana);
+					draw_grafico_cem_mil(data.por_cem_mil);
+				},error:function(err){
+					console.log(err);
+				}
+			});
+		}
+
+		$(() => {
+			var SENDING = false;
+
+			load_data({})
+
+			$("#select_uf").change(function(){
+				var valor = $(this).val();
+				var tipo = $("option[value='"+valor+"']").attr('type');
+				var obj = {}
+				if(tipo == 'regiao'){
+					obj.regiao = valor;
+				}
+
+				else if(tipo == 'estado'){
+					obj.estado_id = valor;
+				}
+
+				else{
+					obj = {}
+				}
+
+				load_data(obj)
+			});
+
+
+			$("#attDados").click(function(){
+				if(SENDING) return false;
+				SENDING = true;
+
+				$.ajax({
+					type: 'POST',
+					url: 'http://localhost:3001/update',
+					dataType: 'json',
+					
+					success: function(data){
+						alert('Atualizado com sucesso !');
+						SENDING = false
+						load_data({});
+					
+					},error: function(err){
+						SENDING = false
+						alert('Houve um erro');
+					}
+				});
+			});
+		})
+	</script>
+	<title>Covid | Painel de informações</title>
+</head>
+<body>
+	{{{body}}}
+</body>
+</html>

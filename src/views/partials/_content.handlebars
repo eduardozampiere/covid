@@ -1,0 +1,172 @@
+<div class="container-lg" id="content">
+		<small class="text-muted">Atualizado em: <span set_value="ultimo_dia"></span></small>
+		<div class="row mt-2">
+			<div class="col-sm-12 col-lg-3 mt-sm-2 mt-lg-0">
+				<div class="card">
+					<div class="card-body">
+						<span>Casos confirmados: <b set_value="confirmados"></b></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-lg-3 mt-sm-2 mt-lg-0">
+				<div class="card">
+					<div class="card-body">
+						<span>Mortes: <b set_value="mortos"></b></span>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-sm-12 col-lg-3 mt-sm-2 mt-lg-0">
+				<div class="card">
+					<div class="card-body">
+						<span>Letalidade: <b set_value="letalidade"></b></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-12 col-lg-3 mt-sm-2 mt-lg-0">
+				<div class="card">
+					<div class="card-body">
+						<span>Dobrando em: <b set_value="dobro"></b></span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+
+		<div class="row mt-2">
+			<div class="col-lg-6 col-sm-12">
+				<div class="card" id="tabela_estados">
+					<div class="card-header">
+						<span>Casos por estado</span>
+					</div>
+					<div class="card-body">
+						<table class="col-12 table table-hover">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Região</th>
+									<th scope="col">Casos</th>
+									<th scope="col">Mortes</th>
+								</tr>
+							</thead>
+							<tbody set_value="por_estado">
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="col-lg-6 col-sm-12 mt-lg-0 mt-sm-2">
+				<div class="card" id="grafico_regiao">
+					<div class="card-header">
+						<span>Casos por regiao</span>
+					</div>
+					<div class="card-body">
+						<div id="div_grafico_regiao">
+							<canvas id="canvas_regiao"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12 mt-2">
+				<div class="card">
+					<div class="card-header">
+						<span>Casos acumulados por dia.</span>
+					</div>
+					<div class="card-body">
+						<div id="div_grafico_dia">
+							<canvas id="canvas_dia"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-12 mt-2">
+				<div class="card">
+					<div class="card-header">
+						<span>Projeção de casos <span set_value="dias_projecao"></span>.</span>
+					</div>
+					<div class="card-body">
+						<div id="div_grafico_projecao">
+							<canvas id="canvas_projecao"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-12 mt-2">
+				<div class="card">
+					<div class="card-header">
+						<span>Casos novos por dia.</span>
+					</div>
+					<div class="card-body">
+						<div id="div_grafico_dia_novos">
+							<canvas id="canvas_dia_novos"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-12 mt-2">
+				<div class="card">
+					<div class="card-header">
+						<span>Taxa de mortalidade por dia</span>
+					</div>
+					<div class="card-body">
+						<div id="div_grafico_mortalidade">
+							<canvas id="canvas_mortalidade"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-12 mt-2">
+				<div class="card">
+					<div class="card-header">
+						<span>Casos por semana</span>
+					</div>
+					<div class="card-body">
+						<div id="div_grafico_semana">
+							<canvas id="canvas_semana"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<div class="row">
+			<div class="col-12 mt-2">
+				<div class="card">
+					<div class="card-header">
+						<span>Casos por 100mil habitantes</span>
+					</div>
+					<div class="card-body">
+						<div id="div_grafico_cem_mil">
+							<canvas id="canvas_cem_mil"></canvas>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
