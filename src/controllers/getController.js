@@ -37,7 +37,8 @@ router.post('/', async (req, res) => {
 	let casos_aux = 0;
 	let data_dobra;
 	let dias_projecao = 30;
-
+	let ultimos_casos = 0;
+	let ultimas_mortes = 0;
 	for(i in casos){
 		let caso = casos[i];
 		let uf = caso.estado;
@@ -52,7 +53,7 @@ router.post('/', async (req, res) => {
 		confirmados += novos_casos;
 		
 		if(confirmados <= 0 && mortos <= 0) continue;
-	
+
 		ultimo_dia = dia;
 		
 		if(!primeira_morte && mortos > 0){
@@ -185,6 +186,9 @@ router.post('/', async (req, res) => {
 	dados.por_semana = por_semana;
 	dados.estado_por_regiao = estado_por_regiao;
 	dados.por_cem_mil = por_cem_mil;
+	dados.ultimos_casos = por_dia_novos[ultimo_dia].casos;
+	dados.ultimas_mortes = por_dia_novos[ultimo_dia].mortos;
+
 	res.send(dados);
 });
 

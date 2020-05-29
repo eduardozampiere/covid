@@ -14,6 +14,23 @@ function ConteudoCovid(props){
 		return date.toString().split('-').reverse().join('/');
 	}
 
+	function formatNumber(value){
+		if(!value) return false
+		let n = value.toString();
+		let t = n.length;
+		let number = '';
+		let aux = 0;
+		for(let i = t-1; i >= 0; i--){
+			number = n[i] + number;
+			aux++;
+			if(aux >= 3 && i > 0){
+				number = '.' + number;
+				aux = 0;
+			}
+		}
+		return number;
+	}
+
 	if(!props.data){
 		return (<h1>Loading</h1>);
 	}
@@ -21,12 +38,14 @@ function ConteudoCovid(props){
 		<div className="container-lg" id="content">
 			<small className="text-muted">Atualizado em: {formatDate(props.data.ultimo_dia) }</small>
 			<div className="row">
-				<CardCovid title="Casos confirmados:" value={props.data.confirmados} />
-				<CardCovid title="Mortes:" value={props.data.mortos}/>
+				<CardCovid title="Casos confirmados:" value={formatNumber(props.data.confirmados) } />
+				<CardCovid title="Mortes:" value={formatNumber(props.data.mortos) }/>
 				<CardCovid title="Letalidade:" value={props.data.letalidade + '%'}/>
 				<CardCovid title="Dobrando em:" value={props.data.dobro + ' dias'}/>
 				<CardCovid title="Primeiro caso:" value={formatDate(props.data.primeiro_caso) }/>
 				<CardCovid title="Primeira morte:" value={formatDate(props.data.primeira_morte)} />
+				<CardCovid title="Ultimos casos:" value={formatNumber(props.data.ultimos_casos) } />
+				<CardCovid title="Ultimas mortes:" value={formatNumber(props.data.ultimas_mortes) } />
 			</div>
 			
 			<div className="row mt-2">
