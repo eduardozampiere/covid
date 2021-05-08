@@ -9,7 +9,7 @@
     "express-handlebars": "^4.0.3",
     "fs": "0.0.1-security",
     "get-csv": "^3.0.3",
-    "handlebars": "^4.7.6",
+    "handlebars": "^4.7.7",
     "jquery": "^3.5.0",
     "moment": "^2.24.0",
     "mongoose": "^5.9.10",
